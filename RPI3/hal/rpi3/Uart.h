@@ -45,6 +45,9 @@ typedef union AUX_MU_IIR_t
 	struct {
 		uint32_t IP:1; // 0
 		uint32_t RII_WFC:2; //2:1
+		uint32_t ARAZ1:1; // 3
+		uint32_t ARAZ2:2; //5:4
+		uint32_t FE:2; //7:6
 	}bits;
 } AUX_MU_IIR_t;
 
@@ -95,9 +98,7 @@ typedef union AUX_MU_MSR_t
 typedef union AUX_MU_SCRATCH_t
 {
 	uint32_t all;
-	struct {
-		uint32_t Scratch:8; // 7:0
-	}bits;	
+	uint8_t SCRATCH; // 7:0
 } AUX_MU_SCRATCH_t;
 
 typedef union AUX_MU_CNTL_t
@@ -110,7 +111,7 @@ typedef union AUX_MU_CNTL_t
 		uint32_t ERAFC_CTS:1; // 3
 		uint32_t RAFL:2; // 5:4
 		uint32_t RAL:1; // 6
-		uint32_t CAL:2; // 7
+		uint32_t CAL:1; // 7
 	}bits;
 } AUX_MU_CNTL_t;
 
