@@ -1,4 +1,7 @@
+
 #include "gpio.h"
+#include "stdint.h"
+#include "Uart.h"
 #include "HalUart.h"
 
 /* Auxilary mini UART registers */
@@ -66,5 +69,6 @@ char Hal_uart_get_char(void)
     /* read it and return */
     r=(char)(*AUX_MU_IO);
     /* convert carrige return to newline */
+    //return r;
     return r=='\r'?'\n':r;
 }
