@@ -13,9 +13,9 @@ void main(void)
     // Hal_uart_put_char('\r');
      Hal_uart_put_char('\n');
 
-    putstr("Hello World!\n");
+    // putstr("Hello World!\n");
 
-    Printf_test();
+    // Printf_test();
 
     while(1)
     {
