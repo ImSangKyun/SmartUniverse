@@ -163,10 +163,11 @@ typedef struct MINIUART_t
 
 typedef struct AUX_IO_t
 {
-	AUX_IRQ_t auxirq;
-	AUX_ENABLES_t aux_enables;
-	MINIUART_t miniuart;
-	uint32_t reserved0[22]; //88bytes reserved. SP1, SP2
+	AUX_IRQ_t auxirq; //0x ??215000
+	AUX_ENABLES_t aux_enables; // 0x??215004
+	uint32_t reserved0[14]; // 5008~503C 
+	MINIUART_t miniuart; //5040
+	uint32_t reserved1[22]; //88bytes reserved. SP1, SP2
 }AUX_IO_t;
 
 #define AUX_IO_BASE_ADDRESS		0x3F215000
