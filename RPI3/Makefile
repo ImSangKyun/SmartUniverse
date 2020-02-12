@@ -20,8 +20,7 @@ C_SRCS += $(notdir $(wildcard lib/*.c))
 
 C_OBJS = $(patsubst %.c, build/%.o, $(C_SRCS))
 
-INC_DIRS =	-I boot\
-         	-I include \
+INC_DIRS =  -I include \
 			-I hal \
 			-I hal/$(TARGET)  \
 			-I lib
