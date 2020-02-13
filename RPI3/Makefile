@@ -50,3 +50,6 @@ $(kernel8): $(ASM_OBJS) $(C_OBJS) $(LINKER_SCRIPT)
 
 clean:
 	rm -fr build
+
+pull:
+	git pull https://github.com/ImSangKyun/SmartUniverse
