@@ -1,11 +1,9 @@
 TARGET = rpi3
 
-CC = $(CrossCompiler)/aarch64-elf-gcc
-LD = $(CrossCompiler)/aarch64-elf-ld
-OC = $(CrossCompiler)/aarch64-elf-objcopy
-#CC = arm-none-eabi-gcc
-#LD = arm-none-eabi-ld
-#OC = arm-none-eabi-objcopy
+CC = aarch64-elf-gcc
+LD = aarch64-elf-ld
+OC = aarch64-elf-objcopy
+
 
 LINKER_SCRIPT = ./linker.ld
 
@@ -27,8 +25,7 @@ INC_DIRS =  -I include \
 			-I hal/$(TARGET)  \
 			-I lib
 
-#CFLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
-CFLAGS = -c -g -std=c11
+CFLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
 
 
 kernel8 = build/kernel8.elf
