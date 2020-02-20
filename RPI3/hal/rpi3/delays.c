@@ -25,6 +25,7 @@
 
 #include "gpio.h"
 #include "HalTimer.h"
+#include "stdint.h"
 #include "Timer.h"
 //#define SYSTMR_LO        ((volatile unsigned int*)(MMIO_BASE+0x00003004))
 //#define SYSTMR_HI        ((volatile unsigned int*)(MMIO_BASE+0x00003008))
@@ -65,7 +66,7 @@ unsigned long get_system_timer()
 	h = S_Timer->chi;
 	l = S_Timer->clo;
     // we have to repeat it if high word changed during read
-    if(h!=S_Timer->chi;) {
+    if(h!=S_Timer->chi) {
         h=S_Timer->chi;
         l=S_Timer->clo;
     }

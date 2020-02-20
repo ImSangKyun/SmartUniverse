@@ -1,8 +1,8 @@
 #include "HalUart.h"
+#include "HalTimer.h"
 #include "stdint.h"
 #include "stdio.h"
-#include "delays.h"
-#includd "Timer.h"
+
 
 static void Hw_init(void);
 static void Printf_test(void);
