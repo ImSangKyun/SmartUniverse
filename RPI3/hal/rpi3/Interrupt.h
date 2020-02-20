@@ -1,126 +1,142 @@
-#ifndef HAL_RVPB_INTERRUPT_H_
-#define HAL_RVPB_INTERRUPT_H_
+#ifndef HAL_RPI3_INTERRUPT_H_
+#define HAL_RPI3_INTERRUPT_H_
+/* rpi3 data sheet p112 */
 
-typedef union CpuControl_t
+typedef union IRQ_basic_pending	
 {
-    uint32_t all;
-    struct {
-        uint32_t Enable:1;          // 0
-        uint32_t reserved:31;
-    } bits;
-} CpuControl_t;
+	uint32_t all;
+	struct {
+		uint32_t ARM_Timer_IRQ_pending:1;						// 0
+		uint32_t ARM_Mailbox_IRQ_pending:1;						// 1
+		uint32_t ARM Doorbell_0_IRQ_pending:1;					// 2
+		uint32_t ARM Doorbell_1_IRQ_pending:1;					// 3
+		uint32_t GPU0_halted_IRQ_pending:1;						// 4
+		uint32_t GPU1_halted_IRQ_pending:1;						// 5
+		uint32_t Illegal_access_type_1_IRQ_pending:1;			// 6
+		uint32_t Illegal_access_type_0_IRQ_pending:1;			// 7
+		uint32_t One_or_more_bits_set_in_pending_register_1:1;	// 8
+		uint32_t One_or_more_bits_set_in_pending_register_2:1;	// 9
+		uint32_t GPU_IRQ_7:1;									// 10
+		uint32_t GPU_IRQ_9:1;									// 11
+		uint32_t GPU_IRQ_10:1;									// 12
+		uint32_t GPU_IRQ_18:1;									// 13
+		uint32_t GPU_IRQ_19:1;									// 14
+		uint32_t GPU_IRQ_53:1;									// 15
+		uint32_t GPU_IRQ_54:1;									// 16
+		uint32_t GPU_IRQ_55:1;									// 17
+		uint32_t GPU_IRQ_56:1;									// 18
+		uint32_t GPU_IRQ_57:1;									// 19
+		uint32_t GPU_IRQ_62:1;									// 20
+		uint32_t unused:11;										// 31:21
+	} bits;
+} IRQ_basic_pending;
 
-typedef union PriorityMask_t
+typedef union IRQ_pending_1 // address offset : 0x204
 {
-    uint32_t all;
-    struct {
-        uint32_t Reserved:4;        // 3:0
-        uint32_t Prioritymask:4;    // 7:4
-        uint32_t reserved:24;
-    } bits;
-} PriorityMask_t;
+	uint32_t all;
+	struct {
+		uint32_t IRQ_pending_source_31_0:32;	// 31:0
+	} bits;
+} IRQ_pending_1;
 
-typedef union BinaryPoint_t
+typedef union IRQ_pending_2
 {
-    uint32_t all;
-    struct {
-        uint32_t Binarypoint:3;     // 2:0
-        uint32_t reserved:29;
-    } bits;
-} BinaryPoint_t;
+	uint32_t all;
+	struct {
+		uint32_t IRQ_pending_source_63_32:32;	// 31:0
+	} bits;
+} IRQ_pending_2;
 
-typedef union InterruptAck_t
+typedef union FIQ_control
 {
-    uint32_t all;
-    struct {
-        uint32_t InterruptID:10;    // 9:0
-        uint32_t CPUsourceID:3;     // 12:10
-        uint32_t reserved:19;
-    } bits;
-} InterruptAck_t;
+	uint32_t all;
+	struct {
+		uint32_t Select_FIQ_Source:7;	// 6:0
+		uint32_t FIQ_enable:1;			// 7
+		uint32_t unused:24;				// 31:8
+	} bits;
+} FIQ_control;
 
-typedef union EndOfInterrupt_t
+typedef union Enable_IRQs_1
 {
-    uint32_t all;
-    struct {
-        uint32_t InterruptID:10;    // 9:0
-        uint32_t CPUsourceID:3;     // 12:10
-        uint32_t reserved:19;
-    } bits;
-} EndOfInterrupt_t;
+	uint32_t all;
+	struct {
+		uint32_t Set_to_enable_IRQ_source_31_0:32;	// 31:0
+	} bits;
+} Enable_IRQs_1
 
-typedef union RunningInterrupt_t
+typedef union Enable_IRQs_2
 {
-    uint32_t all;
-    struct {
-        uint32_t Reserved:4;        // 3:0
-        uint32_t Priority:4;        // 7:4
-        uint32_t reserved:24;
-    } bits;
-} RunningInterrupt_t;
+	uint32_t all;
+		uint32_t Set_to_enable_IRQ_source_63_32:32;	// 31:0
+	struct {
+	} bits;
+} Enable_IRQs_2;
 
-typedef union HighestPendInter_t
+typedef union Enable_Basic_IRQs
 {
-    uint32_t all;
-    struct {
-        uint32_t InterruptID:10;    // 9:0
-        uint32_t CPUsourceID:3;     // 12:10
-        uint32_t reserved:19;
-    } bits;
-} HighestPendInter_t;
+	uint32_t all;
+	struct {
+		uint32_t Set_to_enable_ARM_Timer_IRQ:1;				// 0
+		uint32_t Set_to_enable_ARM_Mailbox_IRQ:1;			// 1
+		uint32_t Set_to_enable_ARM_Doorbell_0_IRQ:1;		// 2
+		uint32_t Set_to_enable_ARM_Doorbell_1_IRQ:1;		// 3
+		uint32_t Set_to_enable_GPU_0_Halted_IRQ:1;			// 4
+		uint32_t Set_to_enable_GPU_1_Halted_IRQ:1;			// 5
+		uint32_t Set_to_enable_Access_error_type_1_IRQ:1;	// 6
+		uint32_t Set_to_enable_Access_error_type_0_IRQ:1;	// 7
+		uint32_t unused:24;									// 31:8
+	} bits;
+} Enable_Basic_IRQs;
 
-typedef union DistributorCtrl_t
+typedef union Disable_IRQs_1
 {
-    uint32_t all;
-    struct {
-        uint32_t Enable:1;          // 0
-        uint32_t reserved:31;
-    } bits;
-} DistributorCtrl_t;
+	uint32_t all;
+	struct {
+		uint32_t Set_to_disable_IRQ_source_31_0:32;	// 31:0
+	} bits;
+} Disable_IRQs_1;
 
-typedef union ControllerType_t
+typedef union Disable_IRQs_2
 {
-    uint32_t all;
-    struct {
-        uint32_t IDlinesnumber:5;   // 4:0
-        uint32_t CPUnumber:3;       // 7:5
-        uint32_t reserved:24;
-    } bits;
-} ControllerType_t;
+	uint32_t all;
+	struct {
+		uint32_t Set_to_disable_IRQ_source_63_32:32;	// 31:0
+	} bits;
+} Disable_IRQs_2;
 
-
-
-typedef struct GicCput_t
+typedef union Disable_Basic_IRQs
 {
-    CpuControl_t       cpucontrol;        //0x000
-    PriorityMask_t     prioritymask;      //0x004
-    BinaryPoint_t      binarypoint;       //0x008
-    InterruptAck_t     interruptack;      //0x00C
-    EndOfInterrupt_t   endofinterrupt;    //0x010
-    RunningInterrupt_t runninginterrupt;  //0x014
-    HighestPendInter_t highestpendinter;  //0x018
-} GicCput_t;
+	uint32_t all;
+	struct {
+		uint32_t Set_to_disable_ARM_Timer_IRQ:1;			// 0
+		uint32_t Set_to_disable_ARM_Mailbox_IRQ:1;			// 1
+		uint32_t Set_to_disable_ARM_Doorbell_0_IRQ:1; 		// 2
+		uint32_t Set_to_disable_ARM_Doorbell_1_IRQ:1; 		// 3
+		uint32_t Set_to_disable_GPU_0_Halted_IRQ:1;			// 4
+		uint32_t Set_to_disable_GPU_1_Halted_IRQ:1;			// 5
+		uint32_t Set_to_disable_Acess_error_type_1_IRQ:1;	// 6
+		uint32_t Set_to_disable_Acess_error_type_0_IRQ:1;	// 7
+		uint32_t unused:24;									// 31:8
+	} bits;
+} Disable_Basic_IRQs;
 
-typedef struct GicDist_t
+typedef struct interrupt_register
 {
-    DistributorCtrl_t   distributorctrl;    //0x000
-    ControllerType_t    controllertype;     //0x004
-    uint32_t            reserved0[62];      //0x008-0x0FC
-    uint32_t            reserved1;          //0x100
-    uint32_t            setenable1;         //0x104
-    uint32_t            setenable2;         //0x108
-    uint32_t            reserved2[29];      //0x10C-0x17C
-    uint32_t            reserved3;          //0x180
-    uint32_t            clearenable1;       //0x184
-    uint32_t            clearenable2;       //0x188
-} GicDist_t;
+	IRQ_basic_pending irqbasicpending;		// 0x200
+	IRQ_pending_1 irqpending1;				// 0x204
+	IRQ_pending_2 irqpending2;				// 0x208
+	FIQ_control fiqcontrol;					// 0x20C
+	Enable_IRQs_1 enableirqs1;				// 0x210
+	Enable_IRQs_2 enableirqs2;				// 0x214
+	Enable_Basic_IRQs enablebasicirqs;		// 0x218
+	Disable_IRQs_1 disableirqs1;			// 0x21C
+	Disable_IRQs_2 disableirqs2;			// 0x220
+	Disable_Basic_IRQs disablebasicirqs;	// 0x224
+}
 
-#define GIC_CPU_BASE  0x1E000000  //CPU interface
-#define GIC_DIST_BASE 0x1E001000  //distributor
+#define ARM_INTERRUPT_BASE 0x7E00B000
 
-#define GIC_PRIORITY_MASK_NONE  0xF
 
-#define GIC_IRQ_START           32
-#define GIC_IRQ_END             95
+#endif /* HAL_RPI3_INTERRUPT_H_ */
 
-#endif /* HAL_RVPB_INTERRUPT_H_ */
