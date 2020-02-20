@@ -18,12 +18,13 @@ typedef union CONTROL_t
 {
 	uint32_t all;
 	struct {
-		uint32_t RESERVED0:1; // 0
+		// NU. Not Used..
+		uint32_t NU_WO:1; // 0
 		uint32_t BC:1; //1 Bit Counter.. 16 or 23.
 		uint32_t PSB:2; //3:2 Pre-scale bits
 		uint32_t RESERVED1:1; //4
 		uint32_t TIE:1; //5 timer interrupt enable..
-		uint32_t MODE:1; //6. not used 1 periodic mode will not be supported...
+		uint32_t NU_MODE:1; //6. not used 1 periodic mode will not be supported...
 		uint32_t TE:1; //7 timer enabled..
 		uint32_t DHMTH:1; //8 Timers halted if ARM is in debug halted mode
 		uint32_t FRCE:1; //9 free running counter enabled.
@@ -86,8 +87,20 @@ typedef struct Timer_t
 	MIRQ_t mirq;		// 0x414 Masked IRQ (Read Only)
 	uint32_t reload;	// 0x418 Reload
 	PD_t pd;			// 0x41C Pre-divider (Not in real 804!)
-	FRC_t frc;			// 0x420 Free running counter (Not in real 804!)
+	uint32_t frc;			// 0x420 Free running counter (Not in real 804!)
 }Timer_t;
 
+
+#define TIMER_CPU_BASE  0x10011000
+#define TIMER_INTERRUPT 0
+// guess. I am not sure. 20200220. 21:23.
+
+#define TIMER_FREERUNNING   0
+#define TIMER_PERIOIC       1
+
+#define TIMER_16BIT_COUNTER 0
+#define TIMER_32BIT_COUNTER 1
+
+#define TIMER_1MZ_INTERVAL       (1024 * 1024)
 
 #endif /* HAL_RPI3_TIMER_H_ */
