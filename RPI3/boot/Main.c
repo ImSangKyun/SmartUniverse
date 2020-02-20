@@ -1,6 +1,8 @@
 #include "HalUart.h"
 #include "stdint.h"
 #include "stdio.h"
+#include "delays.h"
+#includd "Timer.h"
 
 static void Hw_init(void);
 static void Printf_test(void);
@@ -16,6 +18,7 @@ void main(void)
      putstr("Hello World!\n");
 
      Printf_test();
+	 
 
     while(1)
     {
@@ -39,6 +42,7 @@ static void Printf_test(void)
     uint32_t i = 5;
     uint32_t* sysctrl0 = (uint32_t*)0x10001000;
 
+	debug_printf("system time1  %d\n", 	get_system_timer());
     debug_printf("%s\n", "Hello printf");
     debug_printf("output string pointer: %s\n", str);
     debug_printf("%s is null pointer, %u number\n", nullptr, 10);
@@ -46,4 +50,6 @@ static void Printf_test(void)
     debug_printf("dec=%u hex=%x\n", 0xff, 0xff);
     debug_printf("print zero %u\n", 0);
     debug_printf("SYSCTRL0 %x\n", *sysctrl0);
+	debug_printf("system time2  %d\n", 	get_system_timer());
+
 }
