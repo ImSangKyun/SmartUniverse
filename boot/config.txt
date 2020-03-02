@@ -1,0 +1,14 @@
+##arm_control=0x0 for 32bit , 0x200 for 64bit
+##or kernel=kernel8-32.img can work. 
+arm_control=0x0
+##arm_control=0x200
+
+##enable_uart=1
+
+kernel=kernel7.img
+kernel_address=0x8000
+##core_freq=250
+##dtoverlay=miniuart-bt
+##init_uart_baud=115200
+##init_uart_clock=48000000
+##kernel=kernel8.img

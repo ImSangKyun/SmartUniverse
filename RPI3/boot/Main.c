@@ -14,6 +14,7 @@ void main(void)
      Hal_uart_put_char('\n');
 
      putstr("Hello World!\n");
+     putstr("Congraturation! this is kernel7.img\n");
 
      Printf_test();
 

@@ -1,12 +1,8 @@
-
-MCPU =cortex-a53
-
 TARGET = rpi3
 
-CC = arm-none-eabi-gcc
-AS = arm-none-eabi-as
-LD = arm-none-eabi-gcc
-OC = arm-none-eabi-objcopy
+CC = aarch64-elf-gcc
+LD = aarch64-elf-ld
+OC = aarch64-elf-objcopy
 
 
 LINKER_SCRIPT = ./linker.ld
@@ -29,7 +25,7 @@ INC_DIRS =  -I include \
 			-I hal/$(TARGET)  \
 			-I lib
 
-CFLAGS = -fpic -ffreestanding -std=gnu99 -Wall -O2 
+CFLAGS = -Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles
 
 
 kernel8 = build/kernel8.elf
@@ -41,16 +37,16 @@ all: clean $(kernel8)
 
 build/%.os: boot.S
 	mkdir -p $(shell dirname $@)
-	$(CC) -mcpu=$(MCPU) $(CFLAGS) -c ./boot/boot.S -o ./build/boot.o
+	$(CC) $(CFLAGS) -c ./boot/boot.S -o ./build/boot.o
 
 build/%.o: %.c
 	mkdir -p $(shell dirname $@)
-	$(CC) -mcpu=$(MCPU) $(CFLAGS) $(INC_DIRS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC_DIRS) -c $< -o $@
 
 
 $(kernel8): $(ASM_OBJS) $(C_OBJS) $(LINKER_SCRIPT)
-	$(LD) -nostdlib -nostartfiles ./build/boot.o $(C_OBJS) -T $(LINKER_SCRIPT) -o ./build/kernel7.elf
-	$(OC) -O binary ./build/kernel7.elf ./build/kernel7.img
+	$(LD) -nostdlib -nostartfiles ./build/boot.o $(C_OBJS) -T $(LINKER_SCRIPT) -o ./build/kernel8.elf
+	$(OC) -O binary ./build/kernel8.elf ./build/kernel8.img
 
 clean:
 	rm -fr build
