@@ -41,7 +41,7 @@ all: clean $(kernel8)
 
 build/%.os: boot.S
 	mkdir -p $(shell dirname $@)
-	$(CC) -mcpu=$(MCPU) $(CFLAGS) -c ./boot/boot.S -o ./build/boot.o
+	$(CC) -mcpu=$(MCPU) $(CFLAGS) $(INC_DIRS) -c ./boot/boot.S -o ./build/boot.o
 
 build/%.o: %.c
 	mkdir -p $(shell dirname $@)
