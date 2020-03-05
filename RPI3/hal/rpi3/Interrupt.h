@@ -8,8 +8,8 @@ typedef union IRQ_basic_pending
 	struct {
 		uint32_t ARM_Timer_IRQ_pending:1;						// 0
 		uint32_t ARM_Mailbox_IRQ_pending:1;						// 1
-		uint32_t ARM Doorbell_0_IRQ_pending:1;					// 2
-		uint32_t ARM Doorbell_1_IRQ_pending:1;					// 3
+		uint32_t ARM_Doorbell_0_IRQ_pending:1;					// 2
+		uint32_t ARM_Doorbell_1_IRQ_pending:1;					// 3
 		uint32_t GPU0_halted_IRQ_pending:1;						// 4
 		uint32_t GPU1_halted_IRQ_pending:1;						// 5
 		uint32_t Illegal_access_type_1_IRQ_pending:1;			// 6
@@ -63,7 +63,7 @@ typedef union Enable_IRQs_1
 	struct {
 		uint32_t Set_to_enable_IRQ_source_31_0:32;	// 31:0
 	} bits;
-} Enable_IRQs_1
+} Enable_IRQs_1;
 
 typedef union Enable_IRQs_2
 {
@@ -133,7 +133,7 @@ typedef struct interrupt_register
 	Disable_IRQs_1 disableirqs1;			// 0x21C
 	Disable_IRQs_2 disableirqs2;			// 0x220
 	Disable_Basic_IRQs disablebasicirqs;	// 0x224
-}
+} interrupt_register;
 
 #define ARM_INTERRUPT_BASE 0x7E00B000
 

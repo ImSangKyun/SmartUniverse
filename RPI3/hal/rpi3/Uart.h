@@ -173,4 +173,4 @@ typedef struct AUX_IO_t
 #define AUX_IO_BASE_ADDRESS		0x3F215000
 #define MINIUART_BASE_ADDRESS	0x3F21
 
-#endif /* HAL_RPI3_GPIO_H_ */
+#endif /* HAL_RPI3_UART_H_ */

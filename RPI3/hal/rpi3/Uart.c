@@ -1,4 +1,3 @@
-
 #include "gpio.h"
 #include "stdint.h"
 #include "Uart.h"
