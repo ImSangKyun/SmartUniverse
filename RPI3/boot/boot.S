@@ -30,8 +30,8 @@ undef_handler_addr:		.word hang
 svc_handler_addr:		.word hang
 pftch_abt_handler_addr:	.word hang
 data_abt_handler_addr:	.word hang
-irq_handler_addr:		.word hang
-fiq_handler_addr:		.word hang
+irq_handler_addr:		.word Irq_Handler
+fiq_handler_addr:		.word Fiq_Handler
 
 reset:
 
